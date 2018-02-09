@@ -15,7 +15,7 @@ influxdb:
   database: "pinba-database"
 
 # Udp usage:
-# Addr should be of the form "host:port"
+# "addr" should be of the form "host:port"
 # or "[ipv6-host%zone]:port".
 #
 #  addr: "influxdb:8883"
