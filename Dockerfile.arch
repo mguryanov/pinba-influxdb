@@ -1,0 +1,15 @@
+FROM archlinux/base as buider
+RUN pacman --noconfirm -Syu sudo tar grep sed wget git base-devel go
+RUN useradd -m -p $(openssl passwd -1 topsecret) -s /bin/bash builder 
+RUN usermod -aG wheel builder
+
+WORKDIR /home/builder
+RUN wget https://raw.githubusercontent.com/mguryanov/pinba-influxdb/master/PKGBUILD
+#ADD PKGBUILD .
+RUN chmod 666 PKGBUILD
+USER builder
+RUN makepkg --noconfirm PKGBUILD
+USER root
+RUN pacman --noconfirm -U pinba-influxer-*
+
+CMD ["pinba-influxer","--config=/etc/pinba-influxer/config.yml"]
