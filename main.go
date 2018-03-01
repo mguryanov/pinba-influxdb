@@ -58,12 +58,11 @@ func newInfluxdbClient(cfg *config, userAgent string) (influxdbClient, error) {
 			Password:  cfg.Influxdb.Password,
 			UserAgent: userAgent,
 		})
-	} else {
-		return influxdb.NewUDPClient(influxdb.UDPConfig{
-			Addr: cfg.Influxdb.Addr,
-		})
 	}
-	return nil, nil
+
+	return influxdb.NewUDPClient(influxdb.UDPConfig{
+			Addr: cfg.Influxdb.Addr,
+	})
 }
 
 func main() {
