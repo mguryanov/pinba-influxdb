@@ -13,10 +13,6 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type influxdbClient interface {
-	Write(influxdb.BatchPoints) error
-}
-
 type config struct {
 	Pinba struct {
 		Addr           string        `yaml:"host"`
@@ -50,7 +46,7 @@ func getConfig(filename string) (*config, error) {
 	return &cfg, nil
 }
 
-func newInfluxdbClient(cfg *config, userAgent string) (influxdbClient, error) {
+func newInfluxdbClient(cfg *config, userAgent string) (influxdb.Client, error) {
 	if strings.HasPrefix(cfg.Influxdb.Addr, "http") {
 		return influxdb.NewHTTPClient(influxdb.HTTPConfig{
 			Addr:      cfg.Influxdb.Addr,
