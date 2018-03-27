@@ -48,14 +48,14 @@ package() {
  cd "$GOPATH/src/$pkgname"
 
  # Package default config (if available)
- pkgconfig='./deb/etc/pinba-influxer/config.yml.example'
+ pkgconfig='./scripts/etc/pinba-influxer/config.yml.example'
  if [ -e $pkgconfig ]; then
    install -Dm644 $pkgconfig \
      "$pkgdir/etc/$pkgname/config.yml"
  fi
 
  # Package service script (if available)
- pkgservice='./deb/usr/lib/pinba-influxer/pinba-influxer.service'
+ pkgservice='./scripts/usr/lib/pinba-influxer/pinba-influxer.service'
  if [ -e $pkgservice ]; then
    install -Dm644 $pkgservice \
      "$pkgdir/usr/lib/systemd/system/$(basename $pkgservice)"
